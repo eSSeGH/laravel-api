@@ -19,6 +19,7 @@
                 <tr>          
                     <th scope="col">Titolo</th>
                     <th scope="col">Tipologia</th>
+                    <th scope="col">Tecnologie</th>
                     <th scope="col">Descrizione</th>               
                     <th scope="col">Nome Cliente</th>
                     <th scope="col">Telefono Cliente</th>
