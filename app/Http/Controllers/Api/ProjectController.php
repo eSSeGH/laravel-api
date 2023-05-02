@@ -14,7 +14,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'success' => true,
-            'results' => $projects
+            'results' => $projects,
         ]);
     }
 }
