@@ -13,7 +13,8 @@ class ProjectController extends Controller
         $projects = Project::limit(20)->get();
 
         return response()->json([
-            'projects' => $projects,
+            'success' => true,
+            'results' => $projects
         ]);
     }
 }
