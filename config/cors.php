@@ -22,8 +22,10 @@ return [
     // PERMETTIAMO SOLO AL NOSTRO CLIENT DI ACCEDERE A LARAVEL UNA VOLTA CHE L'APPLICATIVO VIENE MESSO ONLINE
 
     // 'allowed_origins' => ['http://localhost:5173'],
+    // oppure se hai settato l'idirizzo nel file .env
+    // 'allowed_origins' => [env('APP_FRONTEND_URL')],
 
-    'allowed_origins' => [env('APP_FRONTEND_URL')],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
