@@ -40,7 +40,7 @@
                     </td>
 
                     <td>
-                        {{ $project->user->name }}
+                        {{ optional($project->user)->name }}
                     </td>
 
                     {{-- laravel ci permette di utilizare il metodo definito nel model come se fosse un attributo --}}
