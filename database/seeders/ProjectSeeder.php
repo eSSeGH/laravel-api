@@ -9,6 +9,7 @@ use App\Models\Project;
 use Illuminate\Support\Str;
 use App\Models\Type;
 use App\Models\Technology;
+use App\Models\User;
 
 class ProjectSeeder extends Seeder
 {
@@ -22,8 +23,9 @@ class ProjectSeeder extends Seeder
         // recuperiamo la collection dei tipi e trasformiamola in un collection dei soli id dei types
         $type_ids = Type::all()->pluck('id')->all();
         $technology_ids = Technology::all()->pluck('id')->all();
+        $user_ids = User::all()->pluck('id')->all();
 
-        for ($i=0; $i < 50; $i++) {
+        for ($i=0; $i < 500; $i++) {
 
             $project = new Project();
             $project->title = $faker->unique->sentence( $faker->numberBetween(3,6) );
@@ -32,6 +34,7 @@ class ProjectSeeder extends Seeder
             $project->client_tel = $faker->numberBetween(3331111111,3399999999);
             $project->slug = Str::slug($project->title, '-');
             $project->type_id = $faker->optional()->randomElement($type_ids);
+            $project->user_id = $faker->randomElement($user_ids);
 
             $project->save();
 
