@@ -86,7 +86,13 @@ class ProjectController extends Controller
     {
         $num_of_trashed = Project::onlyTrashed()->count();
 
-        return view('projects.show', compact('project', 'num_of_trashed'));
+        if($project->user_id == Auth::id() ) {
+
+            return view('projects.show', compact('project', 'num_of_trashed'));
+        } else {
+
+            abort(403, 'Azione non autorizzata.');
+        }
     }
 
      /**
@@ -98,14 +104,21 @@ class ProjectController extends Controller
     public function restore(Project $project)
     {
 
-        if ($project->trashed()) {
-            $project->restore();
-        }
+        if($project->user_id == Auth::id() ) {
 
-        // uesta funzione helpers 'back()' ci rimanda indietro alla pagina nella uale abbiamo invocato il restore
-        // in uesto caso è utile perchè abbiamo un pulsante restore sia nella pagina index che nella pagina 
-        // show, e uindi non importa dove lo clicchiamo: ritorneremo alla pagina dove lo abbiamo cliccato
-        return back();
+            if ($project->trashed()) {
+                $project->restore();
+            }
+    
+            // uesta funzione helpers 'back()' ci rimanda indietro alla pagina nella uale abbiamo invocato il restore
+            // in uesto caso è utile perchè abbiamo un pulsante restore sia nella pagina index che nella pagina 
+            // show, e uindi non importa dove lo clicchiamo: ritorneremo alla pagina dove lo abbiamo cliccato
+            return back();
+
+        } else {
+
+            abort(403, 'Azione non autorizzata.');
+        }
     }
 
     /**
@@ -121,7 +134,15 @@ class ProjectController extends Controller
         $types = Type::orderBy('name', 'asc')->get();
         $technologies = Technology::orderBy('name', 'asc')->get();
 
-        return view('projects.edit', compact('project', 'num_of_trashed', 'types', 'technologies'));
+        if($project->user_id == Auth::id() ) {
+
+            return view('projects.edit', compact('project', 'num_of_trashed', 'types', 'technologies'));
+        } else {
+
+            abort(403, 'Azione non autorizzata.');
+        }
+
+        
     }
 
     /**
@@ -144,9 +165,15 @@ class ProjectController extends Controller
             $project->technologies()->sync([]);
         }
 
-        $project->update($data);
+        if($project->user_id == Auth::id() ) {
 
-        return to_route('projects.show', $project);
+            $project->update($data);
+
+            return to_route('projects.show', $project);
+        } else {
+
+            abort(403, 'Azione non autorizzata.');
+        }
     }
 
     /**
@@ -157,14 +184,20 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if($project->trashed()) {
-            $project->forceDelete();
-            // eliminazione definitiva
-        } else {
-            $project->delete(); 
-            // eliminazione soft
-        }
+        if($project->user_id == Auth::id() ) {
 
-        return back();
+            if($project->trashed()) {
+                $project->forceDelete();
+                // eliminazione definitiva
+            } else {
+                $project->delete(); 
+                // eliminazione soft
+            }
+    
+            return back();
+        } else {
+
+            abort(403, 'Azione non autorizzata.');
+        }
     }
 }
