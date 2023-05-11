@@ -26,9 +26,10 @@ class ProjectController extends Controller
         $auth_id = Auth::id();
 
         if($trashed) {
-            $projects = Project::onlyTrashed()->get();
+            // per il with eager loading su doc
+            $projects = Project::onlyTrashed()->with('technologies:id,name', 'type:id,name', 'user')->where('user_id', $auth_id)->get();
         } else {
-            $projects = Project::where('user_id', $auth_id)->get();
+            $projects = Project::with('technologies:id,name', 'type:id,name', 'user')->where('user_id', $auth_id)->get();
         }
 
         $num_of_trashed = Project::onlyTrashed()->count();

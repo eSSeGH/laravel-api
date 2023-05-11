@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function index() {
 
-        $projects = Project::limit(20)->get();
+        $projects = Project::with('technologies', 'type', 'user')->orderBy('created_at', 'desc')->limit(20)->get();
 
         return response()->json([
             'success' => true,
