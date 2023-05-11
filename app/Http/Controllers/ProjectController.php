@@ -28,7 +28,7 @@ class ProjectController extends Controller
         if($trashed) {
             $projects = Project::onlyTrashed()->get();
         } else {
-            $projects = Project::all();
+            $projects = Project::where('user_id', $auth_id)->get();
         }
 
         $num_of_trashed = Project::onlyTrashed()->count();
@@ -64,6 +64,8 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         $data['slug'] = Str::slug( $data['title'] );
+
+        $data['user_id'] = Auth::id();
 
         $project = Project::create($data);
 

@@ -18,7 +18,8 @@
             <thead>
                 <tr>          
                     <th scope="col">Titolo</th>
-                    <th scope="col">Tipologia</th>
+                    <th scope="col">Utente</th>
+                    <th scope="col">Tipologia</th>                
                     <th scope="col">Tecnologie</th>
                     <th scope="col">Descrizione</th>               
                     <th scope="col">Nome Cliente</th>
@@ -36,6 +37,10 @@
                     <td>
                         {{ $project->title }} <br>
                         <a href="{{ route('projects.show', $project['slug']) }}">Vai al progetto</a>
+                    </td>
+
+                    <td>
+                        {{ $project->user->name }}
                     </td>
 
                     {{-- laravel ci permette di utilizare il metodo definito nel model come se fosse un attributo --}}
