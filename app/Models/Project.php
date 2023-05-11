@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Type;
+use App\Models\User;
+
 
 class Project extends Model
 {
@@ -17,7 +19,8 @@ class Project extends Model
         'client_name',
         'client_tel',
         'slug',
-        'type_id'
+        'type_id',
+        'user_id'
     ];
 
     public function type() 
@@ -29,4 +32,10 @@ class Project extends Model
     {
         return $this->belongsToMany(Technology::class);
     }
+
+    public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
