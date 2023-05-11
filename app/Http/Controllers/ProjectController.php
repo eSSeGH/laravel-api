@@ -33,9 +33,7 @@ class ProjectController extends Controller
 
         $num_of_trashed = Project::onlyTrashed()->count();
 
-     
-
-        return view('projects.index', compact('projects', 'num_of_trashed'));
+        return view('projects.index', compact('projects', 'trashed', 'num_of_trashed'));
     }
 
     /**
@@ -101,13 +99,15 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function restore(Project $project)
+    public function restore(Request $request, Project $project)
     {
 
         if($project->user_id == Auth::id() ) {
 
             if ($project->trashed()) {
                 $project->restore();
+
+                $request->session()->flash('message', 'Il progetto è stato ripristinato correttamente.');
             }
     
             // uesta funzione helpers 'back()' ci rimanda indietro alla pagina nella uale abbiamo invocato il restore

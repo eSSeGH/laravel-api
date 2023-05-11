@@ -7,29 +7,58 @@
 
     <div class="container">
 
-        @if($trashed = true)
+        @if($trashed)
         <h1>Tutti i progetti eliminati</h1>
+
         @else
         <h1>Tutti i progetti</h1>
         @endif
 
 
         <table class="table main-table">
-            <thead>
-                <tr>          
-                    <th scope="col">Titolo</th>
-                    <th scope="col">Utente</th>
-                    <th scope="col">Tipologia</th>                
-                    <th scope="col">Tecnologie</th>
-                    <th scope="col">Descrizione</th>               
-                    <th scope="col">Nome Cliente</th>
-                    <th scope="col">Telefono Cliente</th>
-                    <th scope="col">Creato</th>
-                    <th scope="col">Aggiornato</th>
-                    <th scope="col">Eliminato</th>
-                    <th scope="col">Opzioni</th>
-                </tr>
-            </thead>
+
+            
+
+            @if($trashed && $num_of_trashed < 1)
+            
+                <h3> Complimenti il tuo cestino è vuoto. </h3>
+
+                @if(request()->session()->exists('message'))
+
+                    <div class="alert alert-primary" role="alert">
+                    {{ request()->session()->pull('message') }}
+                    </div>
+
+                @endif
+        
+            @else
+
+                @if(request()->session()->exists('message'))
+
+                    <div class="alert alert-primary" role="alert">
+                    {{ request()->session()->pull('message') }}
+                    </div>
+
+                @endif
+
+                <thead>
+                    <tr>          
+                        <th scope="col">Titolo</th>
+                        <th scope="col">Utente</th>
+                        <th scope="col">Tipologia</th>                
+                        <th scope="col">Tecnologie</th>
+                        <th scope="col">Descrizione</th>               
+                        <th scope="col">Nome Cliente</th>
+                        <th scope="col">Telefono Cliente</th>
+                        <th scope="col">Creato</th>
+                        <th scope="col">Aggiornato</th>
+                        <th scope="col">Eliminato</th>
+                        <th scope="col">Opzioni</th>
+                    </tr>
+                </thead>
+
+            @endif
+
             <tbody>
 
                 @foreach($projects as $project)
