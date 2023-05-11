@@ -21,7 +21,9 @@ return [
 
     // PERMETTIAMO SOLO AL NOSTRO CLIENT DI ACCEDERE A LARAVEL UNA VOLTA CHE L'APPLICATIVO VIENE MESSO ONLINE
 
-    'allowed_origins' => ['http://localhost:5173'],
+    // 'allowed_origins' => ['http://localhost:5173'],
+
+    'allowed_origins' => [env('APP_FRONTEND_URL')],
 
     'allowed_origins_patterns' => [],
 
